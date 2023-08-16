@@ -2,6 +2,7 @@ const express= require('express');
 const mongoose=require('mongoose');
 const dotenv= require('dotenv').config();
 const cors=require('cors');
+const authRoute = require("./routes/auth")
 
 const app=express();
 
@@ -14,8 +15,9 @@ const PORT=process.env.PORT || 5500;
 //use cors to ensure if port is other than 5500
 app.use(cors());
 
-//import routes
+//import routes and use routes
 
+app.use("/api/auth", authRoute);
 
 //connect to mongodb
 
