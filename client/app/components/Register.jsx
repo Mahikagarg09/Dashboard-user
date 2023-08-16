@@ -32,7 +32,7 @@ const Register = () => {
 
         const skillsArray = skills.split(',').map(skill => skill.trim());
 
-        const res = await axios.post("/api/register", {
+        const res = {
             name,
             email,
             password,
@@ -49,7 +49,7 @@ const Register = () => {
             educationDegree,
             educationYears,
             educationDescription,
-        });
+        };
 
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!regex.test(password)) {
@@ -300,7 +300,7 @@ const Register = () => {
             </div>
             {error && (
                 <div>
-                    <p className="mt-5 text-center text-md text-red-950 ">{error}</p>
+                    <p className="mt-5 text-center text-md font-semibold text-red-500 ">{error}</p>
                 </div>
             )}
         </form>
