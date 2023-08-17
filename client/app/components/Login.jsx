@@ -21,9 +21,9 @@ export default function Login() {
 
         try {
             const response = await axios.post('http://localhost:5500/api/auth/login', { email, password });
-            console.log(response.data.message);
+            console.log(response.data);
 
-            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userId', response.data);
 
             router.push('/user/profile')
         } catch (error) {

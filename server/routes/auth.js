@@ -23,14 +23,14 @@ router.post("/register", async (req, res) => {
 
         const Experience = {
             role: req.body.experienceRole,
-            job_type: req.body.experienceJobType,
+            jobtype: req.body.experienceJobType,
             company: req.body.experienceCompany,
             years: req.body.experienceYears,
         };
 
         const Education = {
-            institute_name: req.body.educationInstitute,
-            degree_name: req.body.educationDegree,
+            institute: req.body.educationInstitute,
+            degree: req.body.educationDegree,
             years: req.body.educationYears,
             description: req.body.educationDescription,
         };
@@ -187,7 +187,7 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ message: "Invalid email or password" });
         }
 
-        res.json({ message: "Logged in successfully" });
+        res.json(user._id);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "An error occurred" });
