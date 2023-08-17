@@ -1,6 +1,36 @@
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 export default function Page() {
+
+    const [otp, setOtp] = useState("");
+    const [error, setError] = useState(null); // State to hold error information
+    const router = useRouter();
+
+    const handleVerify = async (e) => {
+        e.preventDefault();
+
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get("userId"); 
+
+        console.log(userId);
+
+        try {
+            const response = await axios.post("http://localhost:5500/api/auth/verifyOTP", { userId, otp });
+            console.log(response);
+            const status = response.data.status;
+
+            if (status === 'VERIFIED') {
+                // Navigate to home page after successful verification
+                router.push('/');
+            }
+        } catch (error) {
+            setError(error.response?.data?.message || "An error occurred");
+        }
+    };
+
     return (
         <div className="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray-50 py-12">
             <div className="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
@@ -15,12 +45,14 @@ export default function Page() {
                     </div>
 
                     <div>
-                        <form>
+                        <form onSubmit={handleVerify}>
                             <div className="form-control w-full max-w-xs m-auto py-3 items-center justify-center text-xl">
                                 <input
                                     type="text"
                                     placeholder="Enter your OTP here"
                                     className="input w-full max-w-xs mb-3 border border-trueGray-900 py-3 text-center"
+                                    value={otp}
+                                    onChange={(e) => setOtp(e.target.value)}
                                 />
                             </div>
                             <div className="text-center">
@@ -30,6 +62,11 @@ export default function Page() {
                             </div>
                         </form>
                     </div>
+                    {error && (
+                        <div className="text-center text-red-500">
+                            {error}
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
