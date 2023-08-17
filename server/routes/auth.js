@@ -171,5 +171,29 @@ router.post("/verifyOTP", async (req, res) => {
     }
 });
 
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordMatch) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+
+        res.json({ message: "Logged in successfully" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "An error occurred" });
+    }
+});
+
+
 
 module.exports = router;
