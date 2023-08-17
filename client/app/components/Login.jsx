@@ -22,6 +22,9 @@ export default function Login() {
         try {
             const response = await axios.post('http://localhost:5500/api/auth/login', { email, password });
             console.log(response.data.message);
+
+            localStorage.setItem('isLoggedIn', 'true');
+
             router.push('/user/profile')
         } catch (error) {
             setErr('Invalid email or password');
