@@ -61,7 +61,6 @@ export default function layout({children}) {
         fetchname();
     }, []);
 
-    console.log(name);
  
     return (
         <div>
