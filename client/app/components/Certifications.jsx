@@ -1,18 +1,30 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image'; // You need to import the 'Image' component from Next.js
 import Badge from "../../public/badge.png";
-
-
-const certifications = [
-    {
-        id: 1,
-        name: 'Certification 1',
-        issued_by: 'Organization A'
-    },
-];
-
+import axios from 'axios';
 
 export default function Certifications() {
+
+    const [certificationData, setcertificationData] = useState([]);
+
+    const userId=localStorage.getItem("userId")
+
+    useEffect(() => {
+        // Fetch user data from your API endpoint
+        const fetchcertificationData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                setcertificationData(response.data.user.certifications || [])
+               
+            } catch (error) {
+                console.error('Error fetching user certifications:', error);
+            }
+        };
+
+        fetchcertificationData();
+    }, []);
+
     return (
         <div className="mb-2 p-5 rounded-lg">
             <div className="flex justify-between">
@@ -25,12 +37,12 @@ export default function Certifications() {
                 <div className="sm:block flex justify-center">
                     <Image src={Badge} alt="badge" className="w-42 sm:w-full sm:ml-5 mt-1" />
                 </div>
-                {certifications.map(certification => (
-                    <div key={certification.id} className="text-[#1F1F1FB2] text-center sm:text-left">
+                {certificationData.map((certification , index) => (
+                    <div key={index} className="text-[#1F1F1FB2] text-center sm:text-left">
                         {/* Display certification details in non-editable mode */}
                         <div>
                             <p className="text-lg">{certification.name}</p>
-                            <p>{certification.issued_by}</p>
+                            <p>{certification.auth_by}</p>
                         </div>
                     </div>
                 ))}

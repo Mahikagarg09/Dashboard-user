@@ -37,7 +37,7 @@ export default function Login() {
             <div className=" pb-[80px] text-center ">
                 <h1 className="text-3xl lg:text-[2.5rem]">Create New Account</h1>
                 <p className="mt-5">
-                    <Link href={`/register`}>Already have an account? <span className='text-blue-900 font-semibold'>Log In</span></Link>
+                    <Link href={`/register`}>Already have an account? <span className='text-blue-900 font-semibold'>Sign Up</span></Link>
                 </p>
             </div>
             <div class="max-w-md bg-white rounded-lg overflow-hidden shadow-lg mx-auto">

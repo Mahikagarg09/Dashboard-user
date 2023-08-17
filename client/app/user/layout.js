@@ -10,6 +10,7 @@ import { BiChevronRight } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import axios from 'axios';
 
 export default function layout({children}) {
 
@@ -40,6 +41,27 @@ export default function layout({children}) {
         localStorage.clear();
         router.push('/');
     }
+
+    const [name, setname] = useState("");
+
+    const userId=localStorage.getItem("userId")
+
+    useEffect(() => {
+        // Fetch user data from your API endpoint
+        const fetchname = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                setname(response.data.user.name) // Update this according to your API response structure
+                
+            } catch (error) {
+                console.error('Error fetching user name:', error);
+            }
+        };
+
+        fetchname();
+    }, []);
+
+    console.log(name);
  
     return (
         <div>
@@ -62,7 +84,7 @@ export default function layout({children}) {
                         </div>
                         <div className="block text-blue-900 mr-7">
                             <p className="text-xs mt-1">Welcome Back,</p>
-                            <p className="text-md font-semibold">Vishnu Swaroop</p>
+                            <p className="text-md font-semibold">{name}</p>
                         </div>
                         <div>
                             <FiChevronDown className="text-blue-900mt-3" size={25} />
