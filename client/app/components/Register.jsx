@@ -59,7 +59,7 @@ const Register = () => {
 
         try {
             const response = await axios.post("http://localhost:5500/api/auth/register", res);
-            console.log(response.data); // Display the response from the server
+            console.log(response.data.data); // Display the response from the server
 
             // Clear form fields or show success message
         } catch (error) {
