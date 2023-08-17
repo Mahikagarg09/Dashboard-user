@@ -92,7 +92,7 @@ const sendOTPVerificationEmail = async ({ _id, email }, res) => {
             subject: "Verify Your Email",
             html: `<div>
             <h5>Welcome to Oruphones
-            <p>Enter the given <b>${otp}</b>in the app to verify your emial adress and complete registration process
+            <p>Enter the given <b>${otp}</b>in the app to verify your email adress and complete registration process
             <p>This code <b>expires in 1 hour</b></p>
             </div>`
         };
