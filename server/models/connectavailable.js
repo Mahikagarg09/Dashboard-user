@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const connectionSchema = new mongoose.Schema(
+
+//----------------THIS IS THE SCHEMA FOR CONNECTIONS AVAILABLE TO A USER-----------------//
+const connectavailableSchema= new mongoose.Schema(
     {
         username: {
             type: String,
@@ -21,4 +23,4 @@ const connectionSchema = new mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model("Connection", connectionSchema);
+module.exports = mongoose.model('connectavailable', connectavailableSchema);
