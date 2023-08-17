@@ -3,6 +3,7 @@ const mongoose=require('mongoose');
 const dotenv= require('dotenv').config();
 const cors=require('cors');
 const authRoute = require("./routes/auth")
+const profileRoute = require("./routes/profile")
 
 const app=express();
 
@@ -18,6 +19,7 @@ app.use(cors());
 //import routes and use routes
 
 app.use("/api/auth", authRoute);
+app.use("/api/profile",profileRoute);
 
 //connect to mongodb
 
