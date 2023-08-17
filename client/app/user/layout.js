@@ -15,10 +15,32 @@ export default function layout({children}) {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
 
-    const toggleSidebar = () => {
+     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
 
+    // Close the sidebar when clicking outside of it
+    useEffect(() => {
+        const closeSidebarOnOutsideClick = (e) => {
+            if (sidebarVisible && !e.target.closest(".sidebar")) {
+                setSidebarVisible(false);
+            }
+        };
+
+        document.addEventListener("click", closeSidebarOnOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", closeSidebarOnOutsideClick);
+        };
+    }, [sidebarVisible]);
+
+    const router=useRouter();
+
+    const handleLogOut = () => {
+        localStorage.clear();
+        router.push('/');
+    }
+ 
     return (
         <div>
             <div className="z-10 bg-white flex justify-between items-center py-2 px-4 border-2 border-trueGray-900 sticky top-0 w-full">
@@ -54,7 +76,7 @@ export default function layout({children}) {
 
             <div
                 className={`${sidebarVisible ? "translate-x-0" : "-translate-x-full"
-                    } sidebar md:-translate-x-0 bg-secondaryColor border-2 border-trueGray-900 z-10 fixed top-0 h-screen w-[300px] px-5 cursor-pointer transform transition-transform duration-500 ease-in-out`}
+                    } sidebar md:-translate-x-0 bg-white border-2 border-trueGray-900 z-10 fixed top-0 h-screen w-[300px] px-5 cursor-pointer transform transition-transform duration-500 ease-in-out`}
             >
                 <div>
                     <Link href="/user/profile">
@@ -78,7 +100,7 @@ export default function layout({children}) {
                     </div>
                 </div>
                 <div className="flex items-center justify-center text-lg font-bold fixed bottom-10 w-[250px]">
-                    <p className="text-center">Log Out</p>
+                    <p className="text-center" onClick={handleLogOut}>Log Out</p>
                 </div>
             </div>
             <div className="md:ms-[300px] p-5">{children}</div>

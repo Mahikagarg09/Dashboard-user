@@ -15,7 +15,7 @@ export default function Education() {
                 <div className="flex items-center justify-between space-x-4 space-y-2">
                     <div className="flex-grow">
                         <div className="flex items-center justify-between">
-                            <p className="font-semibold text-lg">Education</p>
+                            <p className="text-lg">Education</p>
                             <div className="inline-flex items-center text-base font-medium rounded-xl bg-violet-50 px-4">
                                 edit
                             </div>
