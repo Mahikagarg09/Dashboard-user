@@ -1,8 +1,11 @@
 "use client"
 import React, { useState } from "react";
 import axios from "axios";
+import {useRouter} from "next/navigation";
 
 const Register = () => {
+
+    const router = useRouter();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -59,9 +62,20 @@ const Register = () => {
 
         try {
             const response = await axios.post("http://localhost:5500/api/auth/register", res);
-            console.log(response.data.data); // Display the response from the server
+            const user_id=response.data.data.userId;
 
-            // Clear form fields or show success message
+            //we get this response after user is sent verification email
+            // {
+            //     "status": "PENDING",
+            //     "message": "Verification OTP Email sent",
+            //     "data": {
+            //       "userId": "64ddde22dbd0f922ef54bbfd",
+            //       "email": "example@gmail.com"
+            //     }
+            //   }
+
+            router.push(`/verify?userId=${user_id}`);
+
         } catch (error) {
             if (error.response) {
                 console.error(error); // Display the error response from the server
