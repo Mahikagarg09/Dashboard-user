@@ -4,7 +4,7 @@ import Image from 'next/image';
 import avatar from '../../public/user.png'
 import axios from 'axios'
 
-const page = ({ user, isConnected }) => {
+const page = ({ user, isConnected,onConnectionChange }) => {
     const [isConnectedState, setIsConnectedState] = useState(isConnected);
 
     let userId;
@@ -39,13 +39,12 @@ const page = ({ user, isConnected }) => {
     
                 // Toggle the connection status in the component
                 setIsConnectedState(!isConnectedState);
+                onConnectionChange();
             } catch (error) {
                 console.error('Error:', error);
             }
         }
     
-
-
     return (
         <div className="flex justify-evenly border-2 border-trueGray-900 rounded-xl bg-secondaryColor py-7">
             <div>

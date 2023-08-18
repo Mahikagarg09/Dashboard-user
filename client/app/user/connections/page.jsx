@@ -3,17 +3,6 @@ import React, { useEffect, useState } from 'react';
 import Connect from '../../components/Connect'
 import axios from 'axios';
 
-const potentialConnections = [
-    {
-        _id: '2',
-        username: 'Jane Smith',
-        role: 'Front-end Developer',
-        company: 'Web Co.',
-        isConnected: false,
-    },
-
-];
-
 export default function Page() {
 
     const [userconnected, setuserconnected] = useState([]);
@@ -26,48 +15,44 @@ export default function Page() {
         userId = localStorage.getItem("userId");
     }
 
-
-    useEffect(() => {
-        // Fetch the people who user have connected with
-        const fetchuserconnected = async () => {
+        const fetchUserConnected = async () => {
             try {
-                const response = await axios.get("http://localhost:5500/api/connect/connections",{
+                const response = await axios.get("http://localhost:5500/api/connect/connections", {
                     params: {
-                      user_id: userId,
+                        user_id: userId,
                     },
-                  });
-                setuserconnected(response.data.connectedPeople || [])
-               
+                });
+                setuserconnected(response.data.connectedPeople || []);
             } catch (error) {
                 console.error('Error fetching user connections:', error);
             }
         };
 
-        fetchuserconnected();
-    }, []);
-
-
-    //fetch the people who user can connect to
-    useEffect(() => {
-        // Fetch the people who user have connected with
-        const fetchuserCanConnect = async () => {
+        // Fetch the people who user can connect to
+        const fetchUserCanConnect = async () => {
             try {
-                const response = await axios.get("http://localhost:5500/api/connect/connections/available",{
+                const response = await axios.get("http://localhost:5500/api/connect/connections/available", {
                     params: {
-                      user_id: userId,
+                        user_id: userId,
                     },
-                  });
-                setUserCanConnect(response.data.availableConnections || [])
-               
+                });
+                setUserCanConnect(response.data.availableConnections || []);
             } catch (error) {
-                console.error('Error fetching people who user can connect with :', error);
+                console.error('Error fetching people who user can connect with:', error);
             }
         };
 
-        fetchuserCanConnect();
-    }, []);
-
-
+        useEffect(() => {
+            fetchUserConnected();
+            fetchUserCanConnect();
+        }, []);
+    
+        // Function to update connections after adding or removing
+        const updateConnections = () => {
+           fetchUserConnected();
+            fetchUserCanConnect();
+        };
+    
     return (
         <div className="relative">
           {/* -------------------HEADER------------------------------ */}
@@ -78,14 +63,14 @@ export default function Page() {
             {/* -----------------------MAIN CONTENT--------------------- */}
             <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-5 mt-9">
                 {userconnected.map((connected,index) => (
-                    <Connect key={index} user={connected}  isConnected={true} />
+                    <Connect key={index} user={connected}  isConnected={true} onConnectionChange={updateConnections} />
                 ))}
             </div>
             <div className="mt-14">
                 <h1 className="text-2xl">People you can also connect</h1>
                 <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-5 mt-9 mb-20">
                     {userCanConnect.map((available,index) => (
-                        <Connect key={index} user={available} isConnected={false} />
+                        <Connect key={index} user={available} isConnected={false} onConnectionChange={updateConnections}/>
                     ))}
                 </div>
             </div>
