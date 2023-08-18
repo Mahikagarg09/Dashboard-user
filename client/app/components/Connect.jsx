@@ -60,7 +60,7 @@ const page = ({ user, isConnected,onConnectionChange }) => {
                 </button>
             </div>
             <div>
-                <Image src={avatar} alt="avatar" width={100} height={100} />
+                <Image src={avatar} alt="avatar" width={120} height={120} />
             </div>
         </div>
     );

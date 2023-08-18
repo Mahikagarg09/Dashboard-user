@@ -36,6 +36,7 @@ export default function layout({children}) {
     }, [sidebarVisible]);
 
     const router=useRouter();
+    const pathname = usePathname();
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -115,13 +116,13 @@ export default function layout({children}) {
                         <Link href="/user/profile">
                             <div className="flex mb-3">
                                 <BiChevronRight size={25} className="mt-3" />
-                                <p className="ml-5 text-lg px-10 py-3 border-2 border-blue-900 rounded-lg">My Profile</p>
+                                <p className= {`ml-5 text-lg px-12 py-3 ${pathname == '/user/profile' ? 'border-2 border-blue-900 rounded-lg' : ''}`}>My Profile</p>
                             </div>
                         </Link>
                         <Link href="/user/connections">
                             <div className="flex mb-3">
                                 <BiChevronRight size={25} className="mt-3" />
-                                <p className="ml-5 text-lg px-10 py-3 border-2 border-blue-900rounded-lg">My Connections</p>
+                                <p className={`ml-5 text-lg px-12 py-3 ${pathname == '/user/connections' ? 'border-2 border-blue-900 rounded-lg' : ''}`}>My Connections</p>
                             </div>
                         </Link>
                     </div>

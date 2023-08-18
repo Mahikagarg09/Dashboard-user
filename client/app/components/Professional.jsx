@@ -14,9 +14,6 @@ export default function Professional() {
                 </div>
                 <div>
                     <Image src={stars} alt="star" className="w-20 hidden sm:block" />
-                    <button className="text-base font-medium rounded-xl bg-violet-50 px-4 mt-2">
-                        Edit
-                    </button>
                 </div>
             </div>
         </div>

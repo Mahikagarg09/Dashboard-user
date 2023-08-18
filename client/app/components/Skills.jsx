@@ -71,13 +71,13 @@ export default function Skills() {
                     {editing ? (
                         <div className="flex space-x-2">
                             <button
-                                className="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded"
+                                className="items-center text-base font-medium rounded-xl bg-violet-50 px-4 mx-2"
                                 onClick={handleSaveClick}
                             >
                                 Save
                             </button>
                             <button
-                                className="bg-gray-400 hover:bg-gray-500 text-white px-2 py-1 rounded"
+                                className="items-center text-base font-medium rounded-xl bg-violet-50 px-4 "
                                 onClick={handleCancelClick}
                             >
                                 Cancel
