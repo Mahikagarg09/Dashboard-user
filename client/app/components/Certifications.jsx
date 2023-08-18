@@ -1,29 +1,53 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image'; // You need to import the 'Image' component from Next.js
+import React, { useState, useEffect } from 'react';
+import Image from "next/image";
 import Badge from "../../public/badge.png";
 import axios from 'axios';
 
-export default function Certifications() {
+const Certifications = () => {
+    let userId;
 
-    const [certificationData, setcertificationData] = useState([]);
+    if (typeof window !== 'undefined') {
+        userId = localStorage.getItem("userId");
+    }
 
-    const userId=localStorage.getItem("userId")
+    const [editable, setEditable] = useState(false);
+    const [certifications, setCertifications] = useState([]);
+    const [originalCertifications, setOriginalCertifications] = useState([]);
 
     useEffect(() => {
         // Fetch user data from your API endpoint
-        const fetchcertificationData = async () => {
+        const fetchCertificationData = async () => {
             try {
                 const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
-                setcertificationData(response.data.user.certifications || [])
-               
+                setCertifications(response.data.user.certifications || []);
+                setOriginalCertifications(response.data.user.certifications || []);
             } catch (error) {
                 console.error('Error fetching user certifications:', error);
             }
         };
 
-        fetchcertificationData();
-    }, []);
+        fetchCertificationData();
+    }, [userId]);
+
+    const handleEditClick = () => {
+        setEditable(true);
+    };
+
+    const handleSaveClick = async () => {
+        try {
+            await axios.put(`http://localhost:5500/api/profile/edit/${userId}`, { certifications });
+            setEditable(false);
+            setOriginalCertifications(certifications);
+        } catch (error) {
+            console.error('Error updating certifications:', error);
+        }
+    };
+
+    const handleCancelClick = () => {
+        setEditable(false);
+        setCertifications(originalCertifications);
+    };
 
     return (
         <div className="mb-2 p-5 rounded-lg">
@@ -31,22 +55,65 @@ export default function Certifications() {
                 <div>
                     <h1 className="text-lg">Certifications</h1>
                 </div>
-                <button className="text-base font-medium rounded-xl bg-violet-50 px-4">Edit</button>
+                <div>
+                    {editable ? (
+                        <>
+                            <button className="items-center text-base font-medium rounded-xl bg-violet-50 px-4 mx-2" onClick={handleSaveClick}>Save</button>
+                            <button className="items-center text-base font-medium rounded-xl bg-violet-50 px-4" onClick={handleCancelClick}>Cancel</button>
+                        </>
+                    ) : (
+                        <button className="items-center text-base font-medium rounded-xl bg-violet-50 px-4" onClick={handleEditClick}>Edit</button>
+                    )}
+                </div>
             </div>
-            <div className="mt-3 border-2 border-trueGray-900 sm:rounded-[3rem] sm:px-5 sm:py-4 sm:flex sm:space-x-20 px-3 py-2 rounded-xl">
+            <div className="mt-3 border-2 border-borderColor sm:rounded-[3rem] sm:px-5 sm:py-4 sm:flex sm:space-x-20 px-3 py-2 rounded-xl">
                 <div className="sm:block flex justify-center">
                     <Image src={Badge} alt="badge" className="w-42 sm:w-full sm:ml-5 mt-1" />
                 </div>
-                {certificationData.map((certification , index) => (
-                    <div key={index} className="text-[#1F1F1FB2] text-center sm:text-left">
-                        {/* Display certification details in non-editable mode */}
-                        <div>
-                            <p className="text-lg">{certification.name}</p>
-                            <p>{certification.auth_by}</p>
-                        </div>
+                {certifications.map(certification => (
+                    <div key={certification.id} className="text-[#1F1F1FB2] text-center sm:text-left">
+                        {editable ? (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-lg w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor mt-2 sm:mt-0"
+                                    value={certification.name}
+                                    onChange={(e) => {
+                                        const updatedCertifications = certifications.map(cert => {
+                                            if (cert.id === certification.id) {
+                                                return { ...cert, name: e.target.value };
+                                            }
+                                            return cert;
+                                        });
+                                        setCertifications(updatedCertifications);
+                                    }}
+                                />
+                                <input
+                                    type="text"
+                                    className="mt-2 w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
+                                    value={certification.auth_by}
+                                    onChange={(e) => {
+                                        const updatedCertifications = certifications.map(cert => {
+                                            if (cert.id === certification.id) {
+                                                return { ...cert, auth_by: e.target.value };
+                                            }
+                                            return cert;
+                                        });
+                                        setCertifications(updatedCertifications);
+                                    }}
+                                />
+                            </>
+                        ) : (
+                            <div>
+                                <p className="text-lg">{certification.name}</p>
+                                <p>{certification.auth_by}</p>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>
         </div>
     );
 }
+
+export default Certifications;
