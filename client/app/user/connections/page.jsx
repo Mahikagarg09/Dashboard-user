@@ -1,16 +1,7 @@
-import React from 'react';
+"use client"
+import React, { useEffect, useState } from 'react';
 import Connect from '../../components/Connect'
-
-const connectedUsers = [
-    {
-        _id: '1',
-        username: 'John Doe',
-        role: 'Software Engineer',
-        company: 'Tech Inc.',
-        isConnected: true,
-    },
-
-];
+import axios from 'axios';
 
 const potentialConnections = [
     {
@@ -24,6 +15,54 @@ const potentialConnections = [
 ];
 
 export default function Page() {
+
+    const [userconnected, setuserconnected] = useState([]);
+    const[userCanConnect,setUserCanConnect]=useState([]);
+
+    const userId=localStorage.getItem("userId")
+
+    useEffect(() => {
+        // Fetch the people who user have connected with
+        const fetchuserconnected = async () => {
+            try {
+                const response = await axios.get("http://localhost:5500/api/connect/connections",{
+                    params: {
+                      user_id: userId,
+                    },
+                  });
+                setuserconnected(response.data.connectedPeople || [])
+               
+            } catch (error) {
+                console.error('Error fetching user connections:', error);
+            }
+        };
+
+        fetchuserconnected();
+    }, []);
+
+
+    //fetch the people who user can connect to
+    useEffect(() => {
+        // Fetch the people who user have connected with
+        const fetchuserCanConnect = async () => {
+            try {
+                const response = await axios.get("http://localhost:5500/api/connect/connections/available",{
+                    params: {
+                      user_id: userId,
+                    },
+                  });
+                setUserCanConnect(response.data.availableConnections || [])
+               
+            } catch (error) {
+                console.error('Error fetching people who user can connect with :', error);
+            }
+        };
+
+        fetchuserCanConnect();
+    }, []);
+
+
+    console.log(userCanConnect);
     return (
         <div className="relative">
           {/* -------------------HEADER------------------------------ */}
@@ -33,15 +72,15 @@ export default function Page() {
 
             {/* -----------------------MAIN CONTENT--------------------- */}
             <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-5 mt-9">
-                {connectedUsers.map(user => (
-                    <Connect key={user._id} user={user} connected="Remove Connection" />
+                {userconnected.map((connected,index) => (
+                    <Connect key={index} user={connected}  isConnected={true} />
                 ))}
             </div>
             <div className="mt-14">
                 <h1 className="text-2xl">People you can also connect</h1>
                 <div className="grid xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-1 gap-5 mt-9 mb-20">
-                    {potentialConnections.map(user => (
-                        <Connect key={user._id} user={user} connected="Connect" />
+                    {userCanConnect.map((available,index) => (
+                        <Connect key={index} user={available} isConnected={false} />
                     ))}
                 </div>
             </div>
