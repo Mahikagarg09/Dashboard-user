@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import avatar from '../../public/user.png'
 import axios from 'axios'
@@ -14,39 +14,36 @@ const page = ({ user, isConnected }) => {
         userId = localStorage.getItem("userId");
     }
 
-    const handleClick = async () => {
-        try {
-            if (isConnectedState) {
-                console.log(userId);
-                console.log(user._id);
-                // Remove the connection
-                const remove=await axios.delete(`http://localhost:5500/api/connect/connections/remove?user_id=${userId}&connect_person_id=${user._id}`);
-                // const remove=await axios.delete('http://localhost:5500/api/connect/connections/remove', {
-                //     params: {
-                //         user_id: userId,
-                //         connect_person_id: user._id,
-                //     },
-                // });
-                console.log(remove.data)
-            } else {
-                // Add the connection
-                console.log(userId);
-                console.log(user._id);
-                const add=await axios.post('http://localhost:5500/api/connect/connections/add', {
-                    params: {
+        const handleClick = async () => {
+            try {
+                if (isConnectedState) {
+                    console.log(userId);
+                    console.log(user._id);
+                    const remove = await axios.delete('http://localhost:5500/api/connect/connections/remove', {
+                        data: {
+                            user_id: userId,
+                            connect_person_id: user._id,
+                        }
+                    });
+                    console.log(remove.data)
+                } else {
+                    // Add the connection
+                    console.log(userId);
+                    console.log(user._id);
+                    const add = await axios.post('http://localhost:5500/api/connect/connections/add', {
                         user_id: userId,
                         connect_person_id: user._id,
-                    }
-                });
-                console.log(add.data)
+                    });
+                    console.log(add.data)
+                }
+    
+                // Toggle the connection status in the component
+                setIsConnectedState(!isConnectedState);
+            } catch (error) {
+                console.error('Error:', error);
             }
-
-            // Toggle the connection status in the component
-            setIsConnectedState(!isConnectedState);
-        } catch (error) {
-            console.error('Error:', error);
         }
-    }
+    
 
 
     return (
