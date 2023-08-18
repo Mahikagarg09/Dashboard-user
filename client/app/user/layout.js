@@ -44,7 +44,13 @@ export default function layout({children}) {
 
     const [name, setname] = useState("");
 
-    const userId=localStorage.getItem("userId")
+    // const userId=localStorage.getItem("userId")
+    let userId;
+
+    if (typeof window !== 'undefined') {
+        // Check if running on the client side
+        userId = localStorage.getItem("userId");
+    }
 
     useEffect(() => {
         // Fetch user data from your API endpoint
