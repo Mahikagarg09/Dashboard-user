@@ -3,18 +3,6 @@ const router = express.Router();
 const connectavailable = require('../models/connectavailable');
 const UserConnection = require('../models/userconnect');
 
-router.post('/add', async (req, res) => {
-    try {
-        const { username, role, company } = req.body;
-        const newPerson = new connectavailable({ username, role, company });
-
-        await newPerson.save();
-
-        res.status(201).json({ message: 'Person added successfully', person: newPerson });
-    } catch (error) {
-        res.status(500).json({ message: 'An error occurred', error: error.message });
-    }
-});
 
 //----------------------ADDING A CONNECTION TO USER----------------------//
 
@@ -54,6 +42,30 @@ router.get('/connections', async (req, res) => {
         res.status(500).json({ message: 'An error occurred', error: error.message });
     }
 });
+
+//-----------------------------FETCHING ALL POTENTIAL CONNECTIONS WHICH USER CAN CONNECT WITH
+router.get('/connections/available', async (req, res) => {
+    try {
+      const { user_id } = req.query;
+  
+      // Find all connections for the given user ID
+      const userConnections = await UserConnection.find({ user_id });
+  
+      // Fetch all potential connections
+      const potentialConnections = await connectavailable.find();
+  
+      // Filter out potential connections that the user is already connected with
+      const availableConnections = potentialConnections.filter(connection =>
+        !userConnections.some(userConnection =>
+          userConnection.connect_person_id.toString() === connection._id.toString()
+        )
+      );
+  
+      res.status(200).json({ availableConnections });
+    } catch (error) {
+      res.status(500).json({ message: 'An error occurred', error: error.message });
+    }
+  });
 
 
 // ----------------------------REMOVE A USER CONNECTION---------------------------//

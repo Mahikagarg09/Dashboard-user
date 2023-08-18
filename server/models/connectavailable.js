@@ -16,10 +16,6 @@ const connectavailableSchema= new mongoose.Schema(
             type: String,
             required: true
         },
-        isConnected: {
-            type: Boolean,
-            default: false
-        }
     }
 )
 
