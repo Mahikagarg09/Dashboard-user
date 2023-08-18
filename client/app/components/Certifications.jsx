@@ -70,8 +70,8 @@ const Certifications = () => {
                 <div className="sm:block flex justify-center">
                     <Image src={Badge} alt="badge" className="w-42 sm:w-full sm:ml-5 mt-1" />
                 </div>
-                {certifications.map(certification => (
-                    <div key={certification.id} className="text-[#1F1F1FB2] text-center sm:text-left">
+                {certifications.map((certification,index)=> (
+                    <div key={index} className="text-[#1F1F1FB2] text-center sm:text-left">
                         {editable ? (
                             <>
                                 <input
