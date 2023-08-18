@@ -9,9 +9,12 @@ const UserConnection = require('../models/userconnect');
 router.post('/connections/add', async (req, res) => {
     try {
         const { user_id, connect_person_id } = req.body;
+        console.log(user_id);
+        console.log(connect_person_id);
 
         const newConnection = new UserConnection({ user_id, connect_person_id });
         await newConnection.save();
+        console.log("connected a user");
 
         res.status(201).json({ message: 'Connection added successfully', connection: newConnection });
     } catch (error) {
@@ -73,6 +76,9 @@ router.delete('/connections/remove', async (req, res) => {
     try {
         const { user_id, connect_person_id } = req.body;
 
+        console.log(user_id);
+        console.log(connect_person_id);
+
         // Find the connection and remove it
         const removedConnection = await UserConnection.findOneAndRemove({
             user_id,
@@ -83,6 +89,7 @@ router.delete('/connections/remove', async (req, res) => {
             return res.status(404).json({ message: 'Connection not found or already removed' });
         }
 
+        console.log("remove connection");
         res.status(200).json({ message: 'Connection removed successfully' });
     } catch (error) {
         res.status(500).json({ message: 'An error occurred', error: error.message });

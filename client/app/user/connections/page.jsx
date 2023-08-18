@@ -19,7 +19,13 @@ export default function Page() {
     const [userconnected, setuserconnected] = useState([]);
     const[userCanConnect,setUserCanConnect]=useState([]);
 
-    const userId=localStorage.getItem("userId")
+    let userId;
+
+    if (typeof window !== 'undefined') {
+        // Check if running on the client side
+        userId = localStorage.getItem("userId");
+    }
+
 
     useEffect(() => {
         // Fetch the people who user have connected with
@@ -62,7 +68,6 @@ export default function Page() {
     }, []);
 
 
-    console.log(userCanConnect);
     return (
         <div className="relative">
           {/* -------------------HEADER------------------------------ */}
