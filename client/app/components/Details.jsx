@@ -18,7 +18,7 @@ export default function Details() {
         // Fetch user data from your API endpoint
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 const user = response.data.user; // Update this according to your API response structure
                 setUserData({
                     name: user.name,
@@ -53,7 +53,7 @@ export default function Details() {
 
     const handleSaveClick = async (key) => {
         try {
-            await axios.put(`http://localhost:5500/api/profile/edit/${userId}`, {
+            await axios.put(`https://user-dashboard-9a9g.onrender.com/api/profile/edit/${userId}`, {
                 [key]: editedUserData[key],
             });
             setUserData((prevData) => ({

@@ -29,7 +29,7 @@ const Uploadpic = () => {
 
     const fetchUserImage = async () => {
         try {
-            const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+            const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
             const userData = response.data.user;
             if (userData.image && userData.image.url) {
                 setUserImage(userData.image.url);
@@ -73,7 +73,7 @@ const Uploadpic = () => {
     const uploadImage = async () => {
         try {
             setUploading(true);
-            const response = await axios.post(`http://localhost:5500/api/profile/uploads/${userId}`, {
+            const response = await axios.post(`https://user-dashboard-9a9g.onrender.com/api/profile/uploads/${userId}`, {
                 image: selectedImage,
             });
             setUploading(false);

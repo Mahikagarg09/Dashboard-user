@@ -20,7 +20,7 @@ export default function Login() {
         }
 
         try {
-            const response = await axios.post('http://localhost:5500/api/auth/login', { email, password });
+            const response = await axios.post('https://user-dashboard-9a9g.onrender.com/api/auth/login', { email, password });
             console.log(response.data);
 
             localStorage.setItem('userId', response.data);

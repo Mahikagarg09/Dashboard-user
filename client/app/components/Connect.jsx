@@ -19,7 +19,7 @@ const page = ({ user, isConnected,onConnectionChange }) => {
                 if (isConnectedState) {
                     console.log(userId);
                     console.log(user._id);
-                    const remove = await axios.delete('http://localhost:5500/api/connect/connections/remove', {
+                    const remove = await axios.delete('https://user-dashboard-9a9g.onrender.com/api/connect/connections/remove', {
                         data: {
                             user_id: userId,
                             connect_person_id: user._id,
@@ -30,7 +30,7 @@ const page = ({ user, isConnected,onConnectionChange }) => {
                     // Add the connection
                     console.log(userId);
                     console.log(user._id);
-                    const add = await axios.post('http://localhost:5500/api/connect/connections/add', {
+                    const add = await axios.post('https://user-dashboard-9a9g.onrender.com/api/connect/connections/add', {
                         user_id: userId,
                         connect_person_id: user._id,
                     });

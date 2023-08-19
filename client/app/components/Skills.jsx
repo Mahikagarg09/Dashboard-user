@@ -19,7 +19,7 @@ export default function Skills() {
         // Fetch user data from your API endpoint
         const fetchSkills = async () => {
             try {
-                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 const user = response.data.user; // Update this according to your API response structure
                 setSkillsData(user.skills || []);
             } catch (error) {
@@ -41,7 +41,7 @@ export default function Skills() {
 
     const handleSaveClick = async () => {
         try {
-            await axios.put(`http://localhost:5500/api/profile/edit/${userId}`, { skills: editedSkills });
+            await axios.put(`https://user-dashboard-9a9g.onrender.com/api/profile/edit/${userId}`, { skills: editedSkills });
             setSkillsData([...editedSkills]);
             setEditing(false);
         } catch (error) {

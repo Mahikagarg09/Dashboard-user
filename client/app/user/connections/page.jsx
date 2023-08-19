@@ -17,7 +17,7 @@ export default function Page() {
 
         const fetchUserConnected = async () => {
             try {
-                const response = await axios.get("http://localhost:5500/api/connect/connections", {
+                const response = await axios.get("https://user-dashboard-9a9g.onrender.com/api/connect/connections", {
                     params: {
                         user_id: userId,
                     },
@@ -31,7 +31,7 @@ export default function Page() {
         // Fetch the people who user can connect to
         const fetchUserCanConnect = async () => {
             try {
-                const response = await axios.get("http://localhost:5500/api/connect/connections/available", {
+                const response = await axios.get("https://user-dashboard-9a9g.onrender.com/api/connect/connections/available", {
                     params: {
                         user_id: userId,
                     },

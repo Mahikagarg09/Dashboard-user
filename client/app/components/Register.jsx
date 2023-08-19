@@ -61,7 +61,7 @@ const Register = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:5500/api/auth/register", res);
+            const response = await axios.post("https://user-dashboard-9a9g.onrender.com/api/auth/register", res);
             const user_id=response.data.data.userId;
 
             //we get this response after user is sent verification email

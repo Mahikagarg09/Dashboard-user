@@ -19,7 +19,7 @@ const Certifications = () => {
         // Fetch user data from your API endpoint
         const fetchCertificationData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 setCertifications(response.data.user.certifications || []);
                 setOriginalCertifications(response.data.user.certifications || []);
             } catch (error) {
@@ -36,7 +36,7 @@ const Certifications = () => {
 
     const handleSaveClick = async () => {
         try {
-            await axios.put(`http://localhost:5500/api/profile/edit/${userId}`, { certifications });
+            await axios.put(`https://user-dashboard-9a9g.onrender.com/api/profile/edit/${userId}`, { certifications });
             setEditable(false);
             setOriginalCertifications(certifications);
         } catch (error) {

@@ -18,7 +18,7 @@ export default function Page() {
         console.log(userId);
 
         try {
-            const response = await axios.post("http://localhost:5500/api/auth/verifyOTP", { userId, otp });
+            const response = await axios.post("https://user-dashboard-9a9g.onrender.com/api/auth/verifyOTP", { userId, otp });
             console.log(response);
             const status = response.data.status;
 

@@ -29,7 +29,7 @@ const Education = () => {
     // Function to fetch education details from the server
     const fetchEducationDetails = () => {
         axios
-            .get(`http://localhost:5500/api/profile/${userId}`)
+            .get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 const educationDetails = userData.education[0] || {};
@@ -57,7 +57,7 @@ const Education = () => {
     // Function to save edited content
     const handleSave = () => {
         setIsEditing(false);
-        axios.put(`http://localhost:5500/api/profile/edit/${userId}`, {
+        axios.put(`https://user-dashboard-9a9g.onrender.com/api/profile/edit/${userId}`, {
             education: [editedContent],
         })
             .then(response => {

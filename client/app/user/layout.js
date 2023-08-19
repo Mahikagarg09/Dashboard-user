@@ -57,7 +57,7 @@ export default function layout({children}) {
         // Fetch user data from your API endpoint
         const fetchname = async () => {
             try {
-                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 setname(response.data.user.name) // Update this according to your API response structure
                 
             } catch (error) {

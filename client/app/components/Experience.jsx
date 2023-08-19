@@ -20,7 +20,7 @@ const Experience = () => {
         // Fetch user data from your API endpoint
         const fetchExperienceData = async () => {
             try {
-                const response = await axios.get(`http://localhost:5500/api/profile/${userId}`);
+                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 setExperienceData(response.data.user.experience || []);
             } catch (error) {
                 console.error('Error fetching user experience:', error);
@@ -45,7 +45,7 @@ const Experience = () => {
             const updatedExperienceData = [...experienceData];
             updatedExperienceData[index] = editedExperience;
 
-            await axios.put(`http://localhost:5500/api/profile/edit/${userId}`, {
+            await axios.put(`https://user-dashboard-9a9g.onrender.com/api/profile/edit/${userId}`, {
                 experience: updatedExperienceData,
             });
             setExperienceData(updatedExperienceData);
