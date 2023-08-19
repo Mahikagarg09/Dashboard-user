@@ -94,7 +94,7 @@ export default function layout({ children }) {
                     </div>
                     <div className="hidden md:flex md:justify-center border-2 border-trueGray-900 rounded-md py-1 w-full">
                         <div>
-                            <Image alt="user" src={userImage|| avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
+                            <img alt="user" src={userImage|| avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
                         </div>
                         <div className="block text-blue-900 mr-7">
                             <p className="text-xs mt-1">Welcome Back,</p>
