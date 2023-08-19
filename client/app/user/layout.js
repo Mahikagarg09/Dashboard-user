@@ -60,7 +60,7 @@ export default function layout({ children }) {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 const userData = response.data.user;
-                console.log(userData);
+                console.log(userData);          
                 if (userData.image && userData.image.url) {
                     console.log(userData.image)
                     setUserImage(userData.image.url);
@@ -94,7 +94,7 @@ export default function layout({ children }) {
                     </div>
                     <div className="hidden md:flex md:justify-center border-2 border-trueGray-900 rounded-md py-1 w-full">
                         <div>
-                            <Image alt="user" src={userImageimage || avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
+                            <Image alt="user" src={userImage|| avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
                         </div>
                         <div className="block text-blue-900 mr-7">
                             <p className="text-xs mt-1">Welcome Back,</p>
@@ -105,7 +105,7 @@ export default function layout({ children }) {
                         </div>
                     </div>
                     <div className="md:hidden">
-                        <img alt="user" src={avatar} className="w-12 h-12 rounded-full object-cover" />
+                        <img alt="user" src={userImage ||  avatar} className="w-12 h-12 rounded-full object-cover" />
                     </div>
                 </div>
             </div>

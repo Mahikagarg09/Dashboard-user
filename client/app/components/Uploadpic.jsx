@@ -24,7 +24,6 @@ const Uploadpic = () => {
 
     useEffect(() => {
         fetchUserImage();
-        console.log("setSelectedImage is", selectedImage);
     }, []);
 
     const fetchUserImage = async () => {
@@ -41,7 +40,6 @@ const Uploadpic = () => {
 
     const handleImageChange = (event) => {
         const selectedFile = event.target.files[0];
-        console.log("Selected file:", selectedFile);
         transformFile(selectedFile);
     };
 
@@ -54,17 +52,10 @@ const Uploadpic = () => {
             reader.onload = () => {
                 setSelectedImage(reader.result);
             };
-            // reader.onloadend = () => {
-            //     console.log("Reader load ended");
-            //     console.log("setSelectedImage is", selectedImage);
-            // };
         } else {
             setSelectedImage(null);
         }
     };
-
-    console.log(selectedImage)
-
 
     // Upload the selected image to the server
     const uploadImage = async () => {
@@ -76,7 +67,6 @@ const Uploadpic = () => {
             setUploading(false);
             setSelectedImage(null);
             fetchUserImage();
-            console.log(response)
         } catch (error) {
             console.log('Error uploading image:', error);
             setUploading(false);
