@@ -12,11 +12,11 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import axios from 'axios';
 
-export default function layout({children}) {
+export default function layout({ children }) {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
 
-     const toggleSidebar = () => {
+    const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
 
@@ -35,7 +35,7 @@ export default function layout({children}) {
         };
     }, [sidebarVisible]);
 
-    const router=useRouter();
+    const router = useRouter();
     const pathname = usePathname();
 
     const handleLogOut = () => {
@@ -44,7 +44,7 @@ export default function layout({children}) {
     }
 
     const [name, setname] = useState("");
-    const[image,setImage] = useState(null);
+    const [userImage, setUserImage] = useState(null);
 
     // const userId=localStorage.getItem("userId")
     let userId;
@@ -60,11 +60,14 @@ export default function layout({children}) {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 const userData = response.data.user;
+                console.log(userData);
                 if (userData.image && userData.image.url) {
-                    setImage(userData.image.url);
+                    console.log(userData.image)
+                    setUserImage(userData.image.url);
+                    console.log(userImage)
                 }
                 setname(userData.name) // Update this according to your API response structure
-                
+
             } catch (error) {
                 console.error('Error fetching user name:', error);
             }
@@ -73,7 +76,7 @@ export default function layout({children}) {
         fetchname();
     }, []);
 
- 
+
     return (
         <div>
             <div className="z-10 bg-white flex justify-between items-center py-2 px-4 border-2 border-trueGray-900 sticky top-0 w-full">
@@ -91,7 +94,7 @@ export default function layout({children}) {
                     </div>
                     <div className="hidden md:flex md:justify-center border-2 border-trueGray-900 rounded-md py-1 w-full">
                         <div>
-                            <Image alt="user" src={image || avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
+                            <Image alt="user" src={userImageimage || avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
                         </div>
                         <div className="block text-blue-900 mr-7">
                             <p className="text-xs mt-1">Welcome Back,</p>
@@ -121,7 +124,7 @@ export default function layout({children}) {
                         <Link href="/user/profile">
                             <div className="flex mb-3">
                                 <BiChevronRight size={25} className="mt-3" />
-                                <p className= {`ml-5 text-lg px-12 py-3 ${pathname == '/user/profile' ? 'border-2 border-blue-900 rounded-lg' : ''}`}>My Profile</p>
+                                <p className={`ml-5 text-lg px-12 py-3 ${pathname == '/user/profile' ? 'border-2 border-blue-900 rounded-lg' : ''}`}>My Profile</p>
                             </div>
                         </Link>
                         <Link href="/user/connections">

@@ -50,17 +50,14 @@ const Uploadpic = () => {
         if (file) {
             reader.readAsDataURL(file);
             reader.onloadstart = () => {
-                console.log("Reader load started");
             };
             reader.onload = () => {
-                console.log("Reader load completed");
-                console.log(reader.result);
                 setSelectedImage(reader.result);
             };
-            reader.onloadend = () => {
-                console.log("Reader load ended");
-                console.log("setSelectedImage is", selectedImage);
-            };
+            // reader.onloadend = () => {
+            //     console.log("Reader load ended");
+            //     console.log("setSelectedImage is", selectedImage);
+            // };
         } else {
             setSelectedImage(null);
         }
