@@ -10,7 +10,6 @@ const page = ({ user, isConnected,onConnectionChange }) => {
     let userId;
 
     if (typeof window !== 'undefined') {
-        // Check if running on the client side
         userId = localStorage.getItem("userId");
     }
 

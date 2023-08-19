@@ -20,7 +20,6 @@ export default function layout({ children }) {
         setSidebarVisible(!sidebarVisible);
     };
 
-    // Close the sidebar when clicking outside of it
     useEffect(() => {
         const closeSidebarOnOutsideClick = (e) => {
             if (sidebarVisible && !e.target.closest(".sidebar")) {
@@ -46,11 +45,9 @@ export default function layout({ children }) {
     const [name, setname] = useState("");
     const [userImage, setUserImage] = useState(null);
 
-    // const userId=localStorage.getItem("userId")
     let userId;
 
     if (typeof window !== 'undefined') {
-        // Check if running on the client side
         userId = localStorage.getItem("userId");
     }
 
@@ -58,10 +55,7 @@ export default function layout({ children }) {
         try {
             const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
             const userData = response.data.user;
-            console.log(userData);
-            console.log(userData.image);
             setUserImage(userData.image.url);
-            console.log(userImage);
             setname(userData.name);
         } catch (error) {
             console.error('Error fetching user name:', error);
@@ -69,7 +63,7 @@ export default function layout({ children }) {
     };
     
     useEffect(() => {
-        fetchname(); // Call the fetchname function here
+        fetchname(); 
     }, []);
 
 

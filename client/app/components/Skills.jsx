@@ -20,7 +20,7 @@ export default function Skills() {
         const fetchSkills = async () => {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
-                const user = response.data.user; // Update this according to your API response structure
+                const user = response.data.user; 
                 setSkillsData(user.skills || []);
             } catch (error) {
                 console.error('Error fetching user skills:', error);

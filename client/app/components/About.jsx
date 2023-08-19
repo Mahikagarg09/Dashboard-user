@@ -14,11 +14,10 @@ export default function About() {
     }
 
     useEffect(() => {
-        // Fetch user data from your API endpoint
         const fetchUserData = async () => {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
-                const user = response.data.user; // Update this according to your API response structure
+                const user = response.data.user; 
                 setUserData({
                     name: user.name,
                     about: user.about,
