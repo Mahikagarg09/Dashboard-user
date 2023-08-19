@@ -60,8 +60,9 @@ export default function layout({children}) {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
                 const userData = response.data.user;
-                const userImageUrl = userData.image.url;
-                setImage(userImageUrl);
+                if (userData.image && userData.image.url) {
+                    setImage(userData.image.url);
+                }
                 setname(userData.name) // Update this according to your API response structure
                 
             } catch (error) {
