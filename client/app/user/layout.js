@@ -44,6 +44,7 @@ export default function layout({children}) {
     }
 
     const [name, setname] = useState("");
+    const[image,setImage] = useState(null);
 
     // const userId=localStorage.getItem("userId")
     let userId;
@@ -58,7 +59,10 @@ export default function layout({children}) {
         const fetchname = async () => {
             try {
                 const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
-                setname(response.data.user.name) // Update this according to your API response structure
+                const userData = response.data.user;
+                const userImageUrl = userData.image.url;
+                setImage(userImageUrl);
+                setname(userData.name) // Update this according to your API response structure
                 
             } catch (error) {
                 console.error('Error fetching user name:', error);
@@ -86,7 +90,7 @@ export default function layout({children}) {
                     </div>
                     <div className="hidden md:flex md:justify-center border-2 border-trueGray-900 rounded-md py-1 w-full">
                         <div>
-                            <Image alt="user" src={avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
+                            <Image alt="user" src={image || avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
                         </div>
                         <div className="block text-blue-900 mr-7">
                             <p className="text-xs mt-1">Welcome Back,</p>

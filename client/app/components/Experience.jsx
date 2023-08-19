@@ -88,6 +88,7 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
+                                        placeholder='Duration'
                                         value={editedExperience.years || ''}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'years')}
@@ -100,6 +101,7 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
+                                        placeholder='Company'
                                         value={editedExperience.company || ''}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'company')}
@@ -114,6 +116,7 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
+                                        placeholder='Role'
                                         value={editedExperience.role || ''}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'role')}
@@ -126,6 +129,7 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
+                                        placeholder='Job Type'
                                         value={editedExperience.jobtype || ''}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'jobtype')}

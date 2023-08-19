@@ -78,6 +78,7 @@ const Certifications = () => {
                                     type="text"
                                     className="text-lg w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor mt-2 sm:mt-0"
                                     value={certification.name}
+                                    placeholder='certificate course'
                                     onChange={(e) => {
                                         const updatedCertifications = certifications.map(cert => {
                                             if (cert.id === certification.id) {
@@ -92,6 +93,7 @@ const Certifications = () => {
                                     type="text"
                                     className="mt-2 w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
                                     value={certification.auth_by}
+                                    placeholder='Authorised by'
                                     onChange={(e) => {
                                         const updatedCertifications = certifications.map(cert => {
                                             if (cert.id === certification.id) {

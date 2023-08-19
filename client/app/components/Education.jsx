@@ -101,6 +101,7 @@ const Education = () => {
                         <input
                             type="text"
                             name="institute"
+                            placeholder='Institute'
                             value={editedContent.institute}
                             onChange={handleChange}
                             className="p-1 rounded-md border-2 border-trueGray-900 focus:outline-trueGray-900 w-32"
@@ -115,6 +116,7 @@ const Education = () => {
                             <input
                                 type="text"
                                 name="years"
+                                placeholder='years'
                                 value={editedContent.years}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-trueGray-900 focus:outline-trueGray-900 w-24"
@@ -128,6 +130,7 @@ const Education = () => {
                             <input
                                 type="text"
                                 name="degree"
+                                placeholder='degree'
                                 value={editedContent.degree}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-trueGray-900 focus:outline-trueGray-900 w-16 font-semibold"
@@ -141,6 +144,7 @@ const Education = () => {
                     {isEditing ? (
                         <textarea
                             name="description"
+                            placeholder='Description'
                             value={editedContent.description}
                             onChange={handleChange}
                             className="p-1 rounded-md border-2 border-trueGray-900 focus:outline-trueGray-900 w-full"
