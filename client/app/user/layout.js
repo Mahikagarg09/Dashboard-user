@@ -54,25 +54,22 @@ export default function layout({ children }) {
         userId = localStorage.getItem("userId");
     }
 
-    useEffect(() => {
-        // Fetch user data from your API endpoint
-        const fetchname = async () => {
-            try {
-                const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
-                const userData = response.data.user;
-                console.log(userData);
-                console.log(userData.image)
-                setUserImage(userData.image.url);
-                console.log(userImage)
-                setname(userData.name)
-            }
-
-            catch (error) {
-                console.error('Error fetching user name:', error);
-            }
-
-            fetchname();
+    const fetchname = async () => {
+        try {
+            const response = await axios.get(`https://user-dashboard-9a9g.onrender.com/api/profile/${userId}`);
+            const userData = response.data.user;
+            console.log(userData);
+            console.log(userData.image);
+            setUserImage(userData.image.url);
+            console.log(userImage);
+            setname(userData.name);
+        } catch (error) {
+            console.error('Error fetching user name:', error);
         }
+    };
+    
+    useEffect(() => {
+        fetchname(); // Call the fetchname function here
     }, []);
 
 
