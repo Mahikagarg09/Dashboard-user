@@ -46,7 +46,7 @@ The project is deployed using:
 - Frontend: Vercel
 - Backend: Render
 
-#### Project Deployed Link: [Live Site]
+#### Project Deployed Link: [Live Site](https://user-dashboard-blht5tu2y-mahikagarg09.vercel.app)
 
 ## Routes Used
 
