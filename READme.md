@@ -3,6 +3,12 @@
 
 This project aims to create a dynamic user dashboard having two sections: Profile and Connections.The frontend is built using Next.js and tailwind css while the backend is built using Node JS AND MongoDB.
 
+![dashbaord](https://github.com/Mahikagarg09/Dashboard-user/assets/98404416/08a848c7-f624-4eb7-8f51-6a2359c5ac5f)
+
+![connections](https://github.com/Mahikagarg09/Dashboard-user/assets/98404416/fedd523a-3604-43ef-8aaa-90eac310e581)
+
+
+
 ## Objective
 The aim of this user dashboard is to create a web page where user can manage his user profile dynamically.They can register/log in ,
 update their profile and connect with people.
